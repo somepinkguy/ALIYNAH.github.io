@@ -12,7 +12,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Custom Countdown</title>
+  <title>Countdown</title>
 
   <style>
     body {
@@ -20,105 +20,64 @@
       text-align: center;
       margin-top: 80px;
     }
-    input {
-      font-size: 20px;
-      padding: 10px;
-      width: 260px;
-    }
-    button {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-    #display {
-      margin-top: 40px;
+
+    #countdown {
       font-size: 40px;
       font-weight: bold;
+      margin-top: 20px;
     }
+
     #secret {
+      display: none; /* Hidden at start */
       margin-top: 40px;
-      font-size: 32px;
+      font-size: 35px;
       font-weight: bold;
       color: green;
-      display: none; /* HIDDEN until countdown ends */
     }
   </style>
 </head>
 <body>
 
-<h1>10 s </h1>
+<h1>Countdown</h1>
 
-<input id="timeInput" placeholder="e.g. 1m 30s or 10s">
-<button onclick="startCountdown()">Start</button>
+<div id="countdown">Loading...</div>
 
-<div id="display">Waiting...</div>
-
-<!-- 👉 SECRET CONTENT (HIDDEN AT START) -->
-<div id="secret">🎉 Surprise! The countdown is finished! 🎉</div>
+<!-- This is the secret message shown AFTER countdown ends -->
+<div id="secret">🎉 The countdown is finished! 🎉</div>
 
 <script>
-let endTime = null;
+// SET YOUR TARGET DATE HERE ↓↓↓
+const targetDate = new Date("2025-7-12T00:00:00").getTime();
+// ↑↑↑ Example: January 1st, 2025
 
-function parseTime(text) {
-  text = text.toLowerCase();
-  let total = 0;
-
-  const regex = /(\d+)\s*(d|h|m|s|ms)/g;
-  let match;
-
-  while ((match = regex.exec(text)) !== null) {
-    let value = parseInt(match[1]);
-    let unit = match[2];
-
-    if (unit === "d") total += value * 86400000;
-    if (unit === "h") total += value * 3600000;
-    if (unit === "m") total += value * 60000;
-    if (unit === "s") total += value * 1000;
-    if (unit === "ms") total += value;
-  }
-
-  return total;
-}
-
-function startCountdown() {
-  const input = document.getElementById("timeInput").value;
-  const ms = parseTime(input);
-
-  if (ms <= 0) {
-    document.getElementById("display").innerText = "Invalid time!";
-    return;
-  }
-
-  // Hide secret again when restarting timer
-  document.getElementById("secret").style.display = "none";
-
-  endTime = Date.now() + ms;
-  updateCountdown();
-}
-
-function updateCountdown() {
-  if (!endTime) return;
-
-  let remaining = endTime - Date.now();
+function update() {
+  const now = Date.now();
+  let remaining = targetDate - now;
 
   if (remaining <= 0) {
-    document.getElementById("display").innerText = "DONE!";
-    
-    // 👉 REVEAL SECRET CONTENT HERE
-    document.getElementById("secret").style.display = "block";
-
+    document.getElementById("countdown").innerText = "DONE!";
+    document.getElementById("secret").style.display = "block"; // Show message
     return;
   }
 
-  const s = Math.floor(remaining / 1000);
-  const ms = remaining % 1000;
+  const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+  remaining %= (1000 * 60 * 60 * 24);
 
-  document.getElementById("display").innerText =
-    s + "s " + ms.toString().padStart(3, "0") + "ms";
+  const hours = Math.floor(remaining / (1000 * 60 * 60));
+  remaining %= (1000 * 60 * 60);
 
-  requestAnimationFrame(updateCountdown);
+  const minutes = Math.floor(remaining / (1000 * 60));
+  remaining %= (1000 * 60);
+
+  const seconds = Math.floor(remaining / 1000);
+
+  document.getElementById("countdown").innerText =
+    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+  requestAnimationFrame(update);
 }
+
+update();
 </script>
 
 </body>
