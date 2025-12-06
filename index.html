@@ -7,6 +7,7 @@
 <body>
   <h1>ALIYNAH</h1>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +22,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #1e1e1e;
-            color: #fff;
+            background-color: #1e1e1e; /* initial dark background */
+            color: #ffffff; /* initial font color */
+            transition: background-color 1s, color 1s;
         }
         #countdown {
             font-size: 3em;
@@ -31,7 +33,7 @@
         #secret {
             display: none;
             font-size: 2em;
-            color: #00ff00;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -43,12 +45,11 @@
 I dont get how you exist. And wow it's your first birthday with me around. I don't know if you're gonna be awake or there when i send this BUT. i tried getting you 100 bucks of robux. 
       I literally couldn't find cards everywhere except for one place i know thats kinda far away. I need to save money for the trip. And when i see you we can seriously go to whatever store you want and you can
       pick out any silly things you want and ill gladly buy you everything you want okay? So this isnt my gift. This is your gift to me. Thank you for existing, God really does have a favorite. HAPPY BIRTHDAY
-      You mean so much to me okay? i love you so much
-🎉</div>
+      You mean so much to me okay? i love you so much 🎉</div>
 
     <script>
-        // Set your countdown date here (YYYY-MM-DD HH:MM:SS)
-        const countdownDate = new Date("2025-12-7 08:00:00").getTime();
+        // Countdown target in UTC
+        const countdownDate = new Date(Date.UTC(2025, 11, 10, 12, 0, 0)).getTime();
 
         const countdownElement = document.getElementById('countdown');
         const secretElement = document.getElementById('secret');
@@ -61,6 +62,9 @@ I dont get how you exist. And wow it's your first birthday with me around. I don
                 clearInterval(interval);
                 countdownElement.style.display = 'none';
                 secretElement.style.display = 'block';
+                // Change background and font color
+                document.body.style.backgroundColor = '#90ee90'; // light green
+                document.body.style.color = '#004d00'; // dark green font
             } else {
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
