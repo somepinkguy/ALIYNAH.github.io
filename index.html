@@ -5,7 +5,77 @@
   <title>Aliynah</title>
 </head>
 <body>
-  <h1>CAN I BITE YOUR TONGUE LIKE ITS MY BAD HABITTTT.</h1>
+  <h1>ALIYNAH</h1>
 
 
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    h1 {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+
+    #countdown {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    #ms {
+      font-size: 60px;
+      color: #ff3333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Countdown</h1>
+
+<div id="countdown">Loading...</div>
+<div id="ms"></div>
+
+<script>
+  const targetDate = new Date("2025-01-01T00:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      document.getElementById("countdown").innerHTML = "Event Started!";
+      document.getElementById("ms").innerHTML = "";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const milliseconds = distance % 1000;
+
+    document.getElementById("countdown").innerHTML =
+      `${0}d ${10}h ${0}m ${0}s`;
+
+    document.getElementById("ms").innerHTML =
+      milliseconds.toString().padStart(3, "0") + " ms";
+  }
+
+  // Update every millisecond
+  setInterval(updateCountdown, 1);
+  updateCountdown();
+</script>
+
+</body>
 </html>
