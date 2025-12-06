@@ -76,8 +76,18 @@ I dont get how you exist. And wow it's your first birthday with me around. I don
 
 /* Initial page colors */
 body {
-    background-color: #B1D6A5;
-    color: #B1D6A5;
+    background-color: ; #4D4242
+    color: #9E629B;
     transition: background-color 1s, color 1s;
 }
+  if (distance <= 0) {
+    clearInterval(interval); // stop the countdown
+
+    // Optional: hide countdown or show secret if you already do this
+    // countdownElement.style.display = 'none';
+    // secretElement.style.display = 'block';
+
+    // ONLY HERE: change background and font
+    document.body.style.backgroundColor = '#90ee90'; // light green
+    document.body.style.color = '#004d00';           // dark green
 </style>
