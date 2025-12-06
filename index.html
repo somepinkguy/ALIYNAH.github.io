@@ -8,37 +8,65 @@
   <h1>ALIYNAH</h1>
 
 
-<!-- Place this where you want the countdown -->
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Countdown</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* vertical centering */
+        align-items: center;     /* horizontal centering */
+        height: 100vh;
+        background-color: #1e1e1e; /* initial dark background */
+        color: #ffffff;           /* initial font color */
+        transition: background-color 1s, color 1s;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px; /* space between title and countdown */
+    }
+
+    #countdown {
+        font-size: 4em;
+        margin-bottom: 20px;
+    }
+
+    #secret {
+        display: none;
+        font-size: 2em;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<h1>Countdown to Secret</h1>
 <div id="countdown">Loading...</div>
-<div id="secret" style="display:none;">🎉 SO I HEARD. I HEARD ITS SOMEONES BIRTHDAY. ITS SOMEONES BIRTHDAY. ITS SOMEONES BIRTHDAY. WHO’S BIRTHDAY IS IT. ITS ITS ITS ITS ALIYNAHS BIRTHDAY? 
-  Ignoring the fact that an angel cannot be born, it still doesn't make sense, isn't aliynah just a theory? Isn't she just an idea? A concept? 
-  The idea of perfection just being impossible for a human makes it impossible for her to exist? Isn't she an idea? The idea of perfection? Of someone so beautiful the human eye cannot process it?
-I dont get how you exist. And wow it's your first birthday with me around. I don't know if you're gonna be awake or there when i send this BUT. i tried getting you 100 bucks of robux. 
-  I literally couldn't find cards everywhere except for one place i know thats kinda far away. 
+<div id="secret">🎉 SO I HEARD. I HEARD ITS SOMEONES BIRTHDAY. ITS SOMEONES BIRTHDAY. 
+  ITS SOMEONES BIRTHDAY. WHO’S BIRTHDAY IS IT. ITS ITS ITS ITS ALIYNAHS BIRTHDAY?
+  Ignoring the fact that an angel cannot be born, it still doesn't make sense, isn't aliynah just a theory? Isn't she just an idea? A concept?
+  The idea of perfection just being impossible for a human makes it impossible for her to exist?
+  Isn't she an idea? The idea of perfection? Of someone so beautiful the human eye cannot process it?
+I dont get how you exist. And wow it's your first birthday with me around. 
+  I don't know if you're gonna be awake or there when i send this BUT. i tried getting you 100 bucks of robux. I literally couldn't find cards everywhere except for one place i know thats kinda far away.
   I need to save money for the trip. And when i see you we can seriously go to whatever store you want and you can pick out any silly things you want and ill gladly buy you everything you want okay? 
-   So this isnt my gift.
-  This is your gift to me.
-  Thank you for existing, God really does have a favorite. 
+  So this isnt my gift. This is your gift to me. Thank you for existing, God really does have a favorite. 
   HAPPY BIRTHDAY 
  🎉</div>
 
 <script>
-(function() {
-    // --- Countdown target (UTC) ---
-    const year = 2025;
-    const month = 12; // December (0-indexed)
-    const day = 7;   // 7th
-    const hour = 8;  // 08:00UTC
-    const minute = 0;
-    const second = 0;
+    // Countdown target (UTC)
+    const countdownDate = new Date(Date.UTC(2025, 12, 7, 8, 0, 0)).getTime();
 
-    const countdownDate = new Date(Date.UTC(year, month, day, hour, minute, second)).getTime();
-
-    // --- Elements ---
     const countdownElement = document.getElementById('countdown');
     const secretElement = document.getElementById('secret');
 
-    // --- Countdown logic ---
     const interval = setInterval(() => {
         const now = new Date().getTime();
         const distance = countdownDate - now;
@@ -47,6 +75,7 @@ I dont get how you exist. And wow it's your first birthday with me around. I don
             clearInterval(interval);
             countdownElement.style.display = 'none';
             secretElement.style.display = 'block';
+
             // Background and font color change
             document.body.style.backgroundColor = '#90ee90'; // light green
             document.body.style.color = '#004d00';           // dark green
@@ -59,19 +88,9 @@ I dont get how you exist. And wow it's your first birthday with me around. I don
             countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
     }, 1000);
-})();
 </script>
-
-<style>
-/* Optional: styling for the countdown and secret */
-#countdown {
-    font-size: 3em;
-    margin-bottom: 20px;
-}
-
-#secret {
-    font-size: 2em;
-    font-weight: bold;
+</body>
+</html>
 }
 
 /* Initial page colors */
