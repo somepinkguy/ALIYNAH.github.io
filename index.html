@@ -8,73 +8,117 @@
   <h1>ALIYNAH</h1>
 
 
-</html>
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Countdown Timer</title>
+  <title>Custom Countdown</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       margin-top: 80px;
     }
-
-    h1 {
-      font-size: 50px;
-      margin-bottom: 20px;
+    input {
+      font-size: 20px;
+      padding: 10px;
+      width: 260px;
     }
-
-    #countdown {
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    #display {
+      margin-top: 40px;
       font-size: 40px;
       font-weight: bold;
     }
-
-    #ms {
-      font-size: 60px;
-      color: #ff3333;
-      margin-top: 10px;
+    #secret {
+      margin-top: 40px;
+      font-size: 32px;
+      font-weight: bold;
+      color: green;
+      display: none; /* HIDDEN until countdown ends */
     }
   </style>
 </head>
 <body>
 
-<h1>Countdown</h1>
+<h1>10 s </h1>
 
-<div id="countdown">Loading...</div>
-<div id="ms"></div>
+<input id="timeInput" placeholder="e.g. 1m 30s or 10s">
+<button onclick="startCountdown()">Start</button>
+
+<div id="display">Waiting...</div>
+
+<!-- 👉 SECRET CONTENT (HIDDEN AT START) -->
+<div id="secret">🎉 Surprise! The countdown is finished! 🎉</div>
 
 <script>
-  const targetDate = new Date("2025-01-01T00:00:00").getTime();
+let endTime = null;
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+function parseTime(text) {
+  text = text.toLowerCase();
+  let total = 0;
 
-    if (distance < 0) {
-      document.getElementById("countdown").innerHTML = "Event Started!";
-      document.getElementById("ms").innerHTML = "";
-      return;
-    }
+  const regex = /(\d+)\s*(d|h|m|s|ms)/g;
+  let match;
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    const milliseconds = distance % 1000;
+  while ((match = regex.exec(text)) !== null) {
+    let value = parseInt(match[1]);
+    let unit = match[2];
 
-    document.getElementById("countdown").innerHTML =
-      `${0}d ${10}h ${0}m ${0}s`;
-
-    document.getElementById("ms").innerHTML =
-      milliseconds.toString().padStart(3, "0") + " ms";
+    if (unit === "d") total += value * 86400000;
+    if (unit === "h") total += value * 3600000;
+    if (unit === "m") total += value * 60000;
+    if (unit === "s") total += value * 1000;
+    if (unit === "ms") total += value;
   }
 
-  // Update every millisecond
-  setInterval(updateCountdown, 1);
+  return total;
+}
+
+function startCountdown() {
+  const input = document.getElementById("timeInput").value;
+  const ms = parseTime(input);
+
+  if (ms <= 0) {
+    document.getElementById("display").innerText = "Invalid time!";
+    return;
+  }
+
+  // Hide secret again when restarting timer
+  document.getElementById("secret").style.display = "none";
+
+  endTime = Date.now() + ms;
   updateCountdown();
+}
+
+function updateCountdown() {
+  if (!endTime) return;
+
+  let remaining = endTime - Date.now();
+
+  if (remaining <= 0) {
+    document.getElementById("display").innerText = "DONE!";
+    
+    // 👉 REVEAL SECRET CONTENT HERE
+    document.getElementById("secret").style.display = "block";
+
+    return;
+  }
+
+  const s = Math.floor(remaining / 1000);
+  const ms = remaining % 1000;
+
+  document.getElementById("display").innerText =
+    s + "s " + ms.toString().padStart(3, "0") + "ms";
+
+  requestAnimationFrame(updateCountdown);
+}
 </script>
 
 </body>
